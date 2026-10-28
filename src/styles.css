@@ -1,0 +1,440 @@
+/* PALETA E TIPOGRAFIA: variáveis em :root são compartilhadas por toda a página.
+   Mudar --primary altera a cor principal sem editar cada botão separadamente. */
+:root {
+  font-family: Inter, 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #292b3d;
+  background: #f7f8fc;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --primary: #5549cd;
+  --primary-dark: #4338ac;
+  --primary-soft: #eeecfc;
+  --muted: #697086;
+  --border: #e6e8ef;
+}
+
+/* BASE: border-box inclui borda e padding na largura. O reset evita diferenças
+   desnecessárias entre navegadores; os controles herdam a fonte do projeto. */
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; }
+button, input, select, textarea { font: inherit; }
+button, a, input, select, summary { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; }
+button:disabled { cursor: default; opacity: .45; }
+a { color: var(--primary); text-decoration: none; }
+a:hover { color: var(--primary-dark); }
+button, a { transition: background .15s, color .15s, border-color .15s; }
+/* ACESSIBILIDADE: foco visível identifica o controle usado pelo teclado.
+   Nunca remova o outline sem fornecer outro indicador de foco. */
+button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px solid #a69bf4; outline-offset: 3px; }
+input:focus, select:focus, textarea:focus { outline: 3px solid #eeecfc; border-color: #8d82e1; }
+svg { flex-shrink: 0; vertical-align: middle; }
+h1, h2, h3, h4, p { margin: 0; }
+code, pre { font-family: 'Cascadia Code', Consolas, 'SFMono-Regular', monospace; }
+code { font-size: .9em; }
+p code { overflow-wrap: anywhere; }
+/* A aba de código esconde a demonstração com hidden, preservando seu estado React. */
+[hidden] { display: none !important; }
+/* Texto só para leitores de tela e atalho visível quando recebe foco. */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.skip-link { position: fixed; top: -80px; left: 15px; z-index: 100; padding: 12px; background: #fff; border: 1px solid var(--primary); border-radius: 7px; }
+.skip-link:focus { top: 12px; }
+
+/* ESTRUTURA: Grid divide o menu e o conteúdo. minmax(0, 1fr) deixa o conteúdo
+   encolher sem uma tabela ou um bloco de código alargar a página inteira. */
+.app-shell { display: grid; grid-template-columns: 242px minmax(0, 1fr); min-height: 100vh; }
+/* sticky mantém o menu no topo durante a rolagem em telas grandes. */
+.sidebar { position: sticky; top: 0; height: 100vh; padding: 35px 20px 22px; display: flex; flex-direction: column; background: #fff; border-right: 1px solid var(--border); }
+.brand { display: flex; align-items: center; gap: 10px; color: #24263a; font-size: 16px; font-weight: 750; letter-spacing: -.5px; padding: 0 1px; }
+.brand-icon { display: grid; place-items: center; width: 38px; height: 40px; border-radius: 11px; background: var(--primary); color: #fff; }
+.brand-light { font-weight: 450; letter-spacing: -.5px; }
+.brand small { display: block; color: #9497a5; font-size: 8px; font-weight: 650; letter-spacing: 1.7px; margin-top: 5px; }
+.sidebar-section-label { margin: 47px 12px 15px; font-size: 9px; color: #9799a7; font-weight: 700; letter-spacing: 1.4px; display: flex; justify-content: space-between; }
+.sidebar-section-label span { letter-spacing: 0; font-size: 10px; }
+.main-nav { display: flex; flex-direction: column; gap: 7px; }
+.nav-link { display: flex; align-items: center; gap: 11px; padding: 13px 12px; border-radius: 8px; color: #707386; font-size: 12px; font-weight: 550; white-space: nowrap; }
+.nav-link:hover { color: var(--primary); background: #f7f6fd; }
+.nav-link.active { background: var(--primary-soft); color: var(--primary); font-weight: 650; }
+.nav-number { margin-left: auto; font-size: 10px; opacity: .65; font-weight: 500; }
+.nav-guide { margin-top: 14px; border-top: 1px solid var(--border); border-radius: 0; padding-top: 22px; }
+.nav-guide.active { border-radius: 8px; border-top-color: transparent; }
+.sidebar-note { background: #f8f8fc; border: 1px solid #ededf5; margin: 36px 5px 20px; padding: 20px 17px; border-radius: 10px; }
+.note-symbol { color: #9b93de; font: 22px Consolas, monospace; display: block; margin-bottom: 15px; }
+.sidebar-note strong { font-size: 13px; line-height: 1.7; font-weight: 650; }
+.sidebar-note p { color: #73788d; font-size: 11px; line-height: 1.8; margin: 9px 0 15px; }
+.sidebar-note a { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 650; }
+.sidebar-bottom { margin-top: auto; font-size: 10px; color: #7e8293; padding: 24px 6px 0; line-height: 2; }
+.sidebar-bottom div { color: #a4a7b2; font-size: 9px; margin-top: 6px; }
+.status-dot { width: 5px; height: 5px; background: #4baf8b; border-radius: 50%; display: inline-block; margin-right: 5px; }
+/* CABEÇALHO E APRESENTAÇÃO: breadcrumb, título e sequência de estudo. */
+.workspace { min-width: 0; }
+.topbar { height: 73px; background: #ffffffb3; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 15px; padding: 0 40px; font-size: 11px; }
+.breadcrumb { display: flex; align-items: center; gap: 13px; color: #9395a5; }
+.breadcrumb span { color: #c8cad4; }
+.breadcrumb strong { color: #5c6074; font-weight: 500; }
+.reference-link { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; color: #85889b; }
+.main-content { max-width: 1360px; margin: 0 auto; padding: 37px 40px 22px; outline: none; }
+.page-hero { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 9px; font-weight: 700; letter-spacing: 1.6px; color: #9290ac; text-transform: uppercase; }
+.eyebrow-line { height: 2px; width: 20px; background: #8980d8; display: inline-block; }
+.page-hero h1 { font-size: clamp(28px, 3vw, 42px); font-weight: 730; letter-spacing: -1.6px; margin: 13px 0 10px; line-height: 1.18; }
+.page-hero h1 > span { color: var(--primary); }
+.page-hero p { color: #71768c; font-size: 13px; line-height: 1.7; }
+.hero-code { display: flex; align-items: center; gap: 17px; font: 12px/1.8 Consolas, monospace; color: #a0a0b7; padding: 15px 16px; user-select: none; }
+.code-bracket { color: #ddd9f0; font-size: 58px; font-weight: 200; }
+.hero-code-key { color: #8b80cc; }
+.hero-code-indent { padding-left: 13px; }
+.hero-code-arrow { color: #b6adcf; }
+.learning-path { margin: 29px 0 34px; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border: 1px solid var(--border); border-radius: 10px; background: #ffffffb3; }
+.learning-path > div { display: flex; align-items: center; gap: 12px; }
+.learning-path > svg { color: #cbccd9; }
+.step-number { background: #f2f1fa; border: 1px solid #e9e6f7; border-radius: 8px; padding: 10px 9px; color: #9189c3; font: 12px Consolas, monospace; }
+.learning-path strong { display: block; font-size: 12px; font-weight: 600; }
+.learning-path small { color: #767c90; display: block; margin-top: 5px; font-size: 11px; }
+/* ÁREA DO EXEMPLO: cabeçalho comum e botões Demonstração/Código-fonte.
+   A classe selected é escolhida pelo estado React em App.jsx. */
+.example-section-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-bottom: 19px; margin-bottom: 22px; border-bottom: 1px solid var(--border); }
+.example-title { display: flex; align-items: center; gap: 10px; }
+.example-icon { display: grid; place-items: center; width: 37px; height: 37px; border: 1px solid #e3dfed; border-radius: 9px; background: #fff; color: #8981bb; }
+.example-title h2 { font-size: 14px; font-weight: 650; }
+.example-title p { font-size: 11px; color: #73798e; margin-top: 5px; }
+.view-switch { display: flex; border: 1px solid #e3e5ef; padding: 3px; border-radius: 7px; background: #eff0f6; }
+.view-switch button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; border: 1px solid transparent; padding: 7px 11px; font-size: 11px; font-weight: 550; color: #72768a; background: transparent; border-radius: 5px; }
+.view-switch button.selected { color: #5d577d; background: #fff; border-color: #e7e6ef; box-shadow: 0 1px 3px #2a23470a; }
+/* UTILITÁRIOS DE LAYOUT: pilha vertical, painel, texto secundário e etiquetas.
+   São reaproveitados pelo catálogo, formulário, relações, fetch e guia. */
+.example-stack { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+/* A moldura exibe modelo.html; seu documento mantém o CSS padrão do navegador. */
+.minimal-preview { width: 100%; height: 620px; border: 1px solid var(--border); border-radius: 10px; background: #fff; }
+.panel { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 22px; min-width: 0; }
+.panel-heading { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+.panel-heading h3 { font-size: 14px; font-weight: 650; }
+.muted { color: var(--muted); font-size: 12px; line-height: 1.8; }
+.badge { display: inline-flex; align-items: center; border: 1px solid #e9e7f2; padding: 4px 8px; font-size: 10px; font-weight: 500; color: #716390; background: #f8f7fd; border-radius: 5px; }
+.badge-green { color: #428f77; background: #eef8f4; border-color: #d4eee4; }
+/* CATÁLOGO: título do domínio e identificação do arquivo de dados. */
+.catalog-intro { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+.mini-label { color: #74798d; letter-spacing: 1.3px; font-size: 9px; font-weight: 650; }
+.catalog-intro h3 { font-size: 21px; letter-spacing: -.65px; margin: 8px 0 7px; font-weight: 650; }
+.catalog-intro p { font-size: 12px; color: #74798e; }
+.file-badge { display: inline-flex; align-items: center; gap: 7px; background: #f0f1f7; padding: 8px 10px; border: 1px solid #e7e9f2; border-radius: 6px; color: #9093a8; font: 10px Consolas, monospace; white-space: nowrap; }
+.file-badge > span { margin-left: 5px; padding-left: 9px; border-left: 1px solid #dadde9; font: 9px 'Segoe UI', sans-serif; }
+/* FILTROS E FORMULÁRIOS: Grid organiza os campos, mas o CSS não executa buscas.
+   Busca e filtros são calculados por Catalogo.jsx e utils/catalogo.js. */
+.filter-panel { padding: 20px 21px 0; }
+.filter-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
+.field { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.field-label { display: block; font-size: 11px; font-weight: 600; color: #646c82; }
+.field input, .field select, .field textarea { width: 100%; min-width: 0; border: 1px solid #e2e5ef; border-radius: 6px; background: #fff; padding: 11px 12px; color: #555d74; font-size: 12px; line-height: 1.25; }
+.field select { padding-right: 28px; min-height: 38px; }
+.field input::placeholder { color: #b0b3c3; }
+.search-input-wrap { position: relative; color: #a6a9bb; }
+.search-input-wrap svg { position: absolute; top: 50%; left: 11px; transform: translateY(-50%); pointer-events: none; }
+.search-input-wrap input { padding-left: 37px; }
+/* O formulário define aria-invalid após validar; este seletor destaca o erro. */
+.field input[aria-invalid='true'], .field select[aria-invalid='true'] { border-color: #d78289; }
+.field-error { color: #b14b59; font-size: 11px; line-height: 1.5; }
+.filter-bottom { display: flex; justify-content: space-between; gap: 14px; align-items: center; padding: 15px 0; margin-top: 17px; border-top: 1px solid #f0f1f6; }
+.checkbox-group { display: flex; gap: 22px; align-items: center; }
+.checkbox-group label { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; color: #6b7389; cursor: pointer; }
+.checkbox-group input { appearance: auto; width: 13px; height: 13px; accent-color: var(--primary); margin: 0; cursor: pointer; }
+.count-bubble { border-radius: 4px; font-size: 8px; min-width: 15px; padding: 2px 4px; text-align: center; background: #f0effa; color: #9b93be; }
+.text-button { border: 0; background: none; color: var(--primary); padding: 2px; font-size: 10px; white-space: nowrap; }
+/* RESULTADOS: contador e controles de alternância entre cartões e tabela. */
+.results-toolbar { display: flex; align-items: center; justify-content: space-between; margin-top: -3px; margin-bottom: -7px; }
+.results-toolbar p { color: #6c748c; font-size: 12px; }
+.results-toolbar strong { color: #555970; font-weight: 650; }
+.results-toolbar p > span { color: #7c8296; margin-left: 6px; font-size: 11px; }
+.layout-switch { display: flex; background: #edeff6; border: 1px solid #e4e6ef; padding: 2px; border-radius: 6px; }
+.layout-switch button { display: grid; place-items: center; border: 0; background: transparent; color: #adb0c0; width: 28px; height: 25px; border-radius: 4px; }
+.layout-switch .selected { background: #fff; color: #8a81c0; box-shadow: 0 1px 3px #34314c0d; }
+/* CARTÕES: três colunas em desktop; as media queries abaixo reduzem para duas/uma.
+   Flex em cada cartão alinha preço e rodapé mesmo com descrições diferentes. */
+.catalog-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 17px; }
+.catalog-card { border: 1px solid #e5e7f0; background: #fff; border-radius: 10px; padding: 20px 20px 0; min-width: 0; display: flex; flex-direction: column; transition: box-shadow .2s, border-color .2s; }
+.catalog-card:hover { border-color: #cbc5ec; box-shadow: 0 5px 18px #3f376b07; }
+.card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 17px; }
+.book-symbol { width: 47px; height: 49px; border-radius: 9px; display: grid; place-items: center; background: #eeecfc; color: #a29bcf; }
+.category-frontend { background: #eeecfc; color: #9c92d0; }
+.category-javascript { background: #fcf6e4; color: #ccad68; }
+.category-design { background: #f9eef2; color: #cf9bad; }
+.category-ferramentas { background: #eaf4f3; color: #81b8b0; }
+/* A estrela ganha is-favorite quando o ID está no estado de favoritos. */
+.favorite-button { width: 28px; height: 28px; display: inline-grid; place-items: center; background: none; border: 1px solid transparent; border-radius: 6px; color: #b9bccb; padding: 3px; }
+.favorite-button:hover { background: #faf6e7; color: #c7a752; }
+.favorite-button.is-favorite { color: #c3a04b; background: #fdf9ed; }
+.favorite-button.is-favorite svg { fill: #ead9a6; }
+.card-category { display: flex; gap: 6px; align-items: center; color: #7a6a9f; font-size: 10px; font-weight: 550; margin-bottom: 9px; }
+.card-category > span { margin-left: auto; color: #7f879e; font: 10px Consolas, monospace; }
+.catalog-card h4 { font-size: 15px; font-weight: 650; letter-spacing: -.25px; color: #424b65; line-height: 1.45; }
+.card-description { color: #6e788f; font-size: 12px; line-height: 1.8; margin-top: 8px; margin-bottom: 17px; flex-grow: 1; }
+.card-meta { display: flex; align-items: center; gap: 6px; justify-content: space-between; margin-bottom: 18px; flex-wrap: wrap; }
+.card-meta > strong { color: #6f698e; font-size: 14px; font-weight: 650; letter-spacing: -.25px; }
+.stock-label { color: #4e7c69; display: inline-flex; align-items: center; gap: 5px; font-size: 10px; }
+.stock-label > span { width: 4px; height: 4px; background: #8abb9e; border-radius: 50%; }
+.out-of-stock { color: #a06b77; }
+.out-of-stock > span { background: #c6a1a7; }
+.card-details { display: flex; align-items: center; justify-content: space-between; width: 100%; border: 0; border-top: 1px solid #f0f0f6; color: #79699e; background: none; font-size: 11px; padding: 13px 0; }
+.card-details:hover { color: var(--primary); }
+.pattern-strip { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; gap: 15px; padding: 15px 17px; border: 1px dashed #dedceb; border-radius: 8px; background: #f4f3fb; }
+.pattern-label { display: inline-flex; gap: 8px; align-items: center; color: #786b97; font-size: 9px; font-weight: 650; letter-spacing: .7px; }
+.pattern-strip > div { display: flex; flex-wrap: wrap; gap: 7px; }
+.pattern-strip code { font-size: 10px; padding: 3px 6px; border-radius: 4px; color: #796c94; background: #edeaf7; }
+/* BOTÕES REUTILIZÁVEIS: combine button com uma variante de cor conforme a ação. */
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; border-radius: 6px; border: 1px solid transparent; padding: 9px 12px; font-size: 11px; font-weight: 550; line-height: 1.35; }
+.button-primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+.button-primary:hover { background: var(--primary-dark); }
+.button-secondary { color: #76728f; background: #fff; border-color: #e3e1ef; }
+.button-secondary:hover { background: #f4f2fd; }
+.button-ghost { background: transparent; color: #88809f; }
+.button-ghost:hover { background: #f1eef9; }
+.button-danger { background: #fff5f5; border-color: #f4dede; color: #bb727e; }
+.button-danger:hover { background: #fae7e9; }
+.inline-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.icon-button { padding: 6px; }
+/* PAGINAÇÃO: componente Paginacao aplica disabled nas extremidades.
+   A função paginarItens decide quais registros aparecem; aqui só há apresentação. */
+.pagination { display: flex; gap: 10px; align-items: center; justify-content: flex-end; }
+.pagination .button { font-size: 10px; padding: 6px 10px; }
+.pagination-pages { display: flex; gap: 4px; }
+.pagination-summary { color: #b2afc0; font-size: 9px; }
+/* ESTADO VAZIO: mesma aparência para busca sem resultado e coleção sem registros. */
+.empty-state { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px; padding: 44px 24px; background: #fff; border: 1px dashed #dfddeb; border-radius: 10px; text-align: center; }
+.empty-state-icon { display: grid; place-items: center; color: #b2a8d2; background: #f4f1fb; width: 56px; height: 56px; border-radius: 50%; margin-bottom: 2px; }
+.empty-state h3 { font-size: 15px; font-weight: 600; color: #6e6589; }
+.empty-state p { max-width: 430px; color: #9b93ac; font-size: 12px; line-height: 1.8; }
+/* TABELAS: a rolagem horizontal fica neste contêiner em telas estreitas. */
+.table-wrap { max-width: 100%; overflow-x: auto; }
+.table-wrap.panel { padding: 4px 17px; }
+.data-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 12px; }
+.data-table th { color: #716982; font-weight: 500; padding: 13px 10px; border-bottom: 1px solid #eeedf4; white-space: nowrap; }
+.data-table td { padding: 15px 10px; border-bottom: 1px solid #f1f0f6; color: #6e667e; line-height: 1.7; }
+.data-table tr:last-child td { border-bottom: 0; }
+.data-table strong { font-weight: 600; color: #625a78; }
+.data-table small { display: block; font-size: 10px; }
+.data-table td .button { padding: 6px 8px; font-size: 10px; }
+.data-table td:has(.inline-actions) { min-width: 142px; }
+.table-wrap:focus-visible { outline: 2px solid #b8addb; }
+/* CADASTRO: duas colunas para formulário/lista; em telas menores viram uma pilha. */
+.section-intro { display: flex; justify-content: space-between; align-items: center; gap: 30px; }
+.section-intro h2 { font-size: 23px; letter-spacing: -.7px; color: #4e4963; margin-top: 8px; font-weight: 650; }
+.section-intro > p { max-width: 395px; font-size: 11px; }
+.example-columns { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 20px; align-items: start; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.feedback-message { font-size: 11px; color: #5f9d83; line-height: 1.8; margin-bottom: 8px; }
+.feedback-message:empty { display: none; }
+.callout { display: flex; align-items: flex-start; gap: 12px; border: 1px solid #e5e0f2; background: #f4f1fb; border-radius: 8px; padding: 16px 18px; color: #78648f; font-size: 12px; line-height: 1.9; }
+.callout strong { font-weight: 650; color: #7a6998; }
+.callout svg { margin-top: 2px; }
+p.callout { display: block; margin-top: 16px; }
+.storage-warning { font-size: 11px; color: #a28d56; }
+/* RELACIONAMENTOS: itens resolvidos por ID e resumo da coleção. */
+.collection-items { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+.collection-card { display: flex; align-items: center; justify-content: space-between; gap: 20px; border: 1px solid #ece8f3; border-radius: 8px; padding: 18px 20px; }
+.collection-card h3 { margin-top: 8px; margin-bottom: 4px; font-size: 14px; font-weight: 600; color: #6a5c80; }
+.collection-card > strong { font-size: 14px; font-weight: 600; color: #9a85b2; white-space: nowrap; }
+.collection-total { display: flex; justify-content: space-between; gap: 20px; padding-top: 20px; margin-top: 22px; border-top: 1px solid #eee9f5; color: #9c8eae; font-size: 11px; }
+.collection-total strong { font-weight: 600; color: #78648f; }
+.collection-card + .empty-state, .panel > .empty-state { margin-top: 20px; }
+/* FETCH: lista recebida e indicador visual de carregamento.
+   O componente escolhe loading/sucesso/erro; a animação apenas representa loading. */
+.fetch-result { margin-top: 20px; }
+.fetch-list { list-style: none; padding: 0; margin: 0; }
+.fetch-list li { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 15px; padding: 19px 3px; border-bottom: 1px solid #eeeaf4; font-size: 12px; }
+.fetch-list strong { color: #7a6b8f; font-weight: 600; }
+.loading-spinner { height: 30px; width: 30px; border: 3px solid #ebe6f5; border-top-color: #a398cf; border-radius: 50%; animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+/* CÓDIGO: pre preserva quebras/indentação; overflow permite ler linhas longas.
+   O botão de copiar pertence ao componente BlocoCodigo. */
+.code-block { border: 1px solid #282b3f; background: #202333; border-radius: 9px; overflow: hidden; max-width: 100%; min-width: 0; }
+.code-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; background: #292c3f; border-bottom: 1px solid #36384c; padding: 10px 17px; }
+.code-title { color: #a6aac2; font: 10px/1.7 Consolas, monospace; overflow-wrap: anywhere; }
+.code-toolbar .button { color: #a7a4be; font-size: 10px; padding: 5px 8px; white-space: nowrap; }
+.code-toolbar .button:hover { background: #3e3c58; }
+.code-feedback { color: #a6c7ba; font-size: 10px; }
+.code-content { margin: 0; padding: 22px; overflow: auto; max-height: 620px; font-size: 11px; line-height: 1.95; color: #bfc2dc; tab-size: 2; scrollbar-width: thin; scrollbar-color: #5a5676 #202333; }
+.code-content code { font-size: inherit; }
+/* RECEITAS: details/summary abre e fecha sem um useState para cada exemplo. */
+.recipe-details { border: 1px solid #e6e2ee; border-radius: 8px; background: #fff; overflow: hidden; }
+.recipe-details > summary { display: flex; align-items: center; gap: 13px; cursor: pointer; padding: 17px 20px; color: #7d6596; font-size: 12px; list-style: none; }
+.recipe-details > summary::-webkit-details-marker { display: none; }
+.recipe-details > summary::before { content: '+'; font-size: 17px; color: #b2a3c5; font-weight: 400; }
+.recipe-details[open] > summary::before { content: '−'; }
+.recipe-details summary > svg:last-child, .recipe-details summary > .badge:last-child { margin-left: auto; }
+.recipe-details > .code-block { border-radius: 0; border-left: 0; border-right: 0; border-bottom: 0; }
+.recipe-details[open] > summary { background: #f8f5fc; }
+.source-view .code-content { max-height: 720px; }
+.source-view .field { max-width: 700px; }
+/* GUIA: checklist, receitas e links para localizar o exemplo da prova. */
+.guide-checklist h3 { font-size: 15px; color: #786486; margin-bottom: 22px; }
+.guide-checklist ol { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; padding: 0; margin: 0; list-style: none; }
+.guide-checklist li { display: flex; gap: 12px; align-items: flex-start; }
+.guide-checklist li > span { display: grid; place-items: center; border-radius: 6px; min-width: 25px; height: 25px; color: #ae97bf; background: #f5eff9; font: 11px Consolas, monospace; }
+.guide-checklist strong { font-size: 13px; font-weight: 600; color: #715582; }
+.guide-checklist p { color: #887095; font-size: 12px; line-height: 1.8; margin-top: 6px; }
+.guide-section-heading { display: flex; justify-content: space-between; gap: 20px; align-items: center; margin-top: 8px; }
+.guide-section-heading h3 { font-size: 17px; color: #826a91; font-weight: 600; margin-bottom: 6px; }
+.guide-section-heading p { color: #897094; font-size: 12px; }
+.recipes-list { display: flex; flex-direction: column; gap: 10px; }
+.recipe-index { color: #c3aecf; font: 10px Consolas, monospace; }
+.recipes-list summary strong { font-size: 13px; color: #7f588e; font-weight: 550; }
+.recipes-list summary small { display: block; font-size: 11px; line-height: 1.7; margin-top: 6px; color: #8d729b; }
+.guide-docs { display: flex; justify-content: space-between; align-items: center; gap: 25px; }
+.guide-docs h3 { font-size: 14px; color: #83568f; margin-bottom: 8px; font-weight: 550; }
+.guide-docs p { font-size: 12px; color: #8b7196; }
+.guide-docs > button { flex-shrink: 0; }
+/* MODAL NATIVO: dialog.showModal coloca a janela acima da página.
+   ::backdrop estiliza o fundo; max-height permite usar a janela em telas pequenas. */
+.modal { border: 1px solid #dfd8ea; border-radius: 14px; padding: 0; width: min(680px, calc(100% - 32px)); max-height: calc(100dvh - 48px); color: #70617e; background: #fff; box-shadow: 0 24px 100px #27203830; }
+.modal::backdrop { background: #23213460; backdrop-filter: blur(3px); }
+.modal-header { padding: 21px 25px; display: flex; justify-content: space-between; align-items: center; gap: 15px; border-bottom: 1px solid #ece5f2; }
+.modal-header h2 { color: #887294; font-size: 20px; font-weight: 600; }
+.modal-body { padding: 25px; font-size: 13px; line-height: 1.9; }
+.modal-body > .inline-actions { margin-top: 24px; }
+.detail-content { display: flex; flex-direction: column; gap: 20px; }
+.detail-content > .badge { align-self: flex-start; }
+.detail-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0; padding: 20px 0; border-top: 1px solid #eee7f3; border-bottom: 1px solid #eee7f3; }
+.detail-grid dt { color: #b69dc0; font-size: 10px; }
+.detail-grid dd { margin: 5px 0 0; color: #94749f; font-size: 14px; }
+.tag-list { display: flex; flex-wrap: wrap; gap: 7px; }
+.page-footer { display: flex; justify-content: space-between; align-items: center; gap: 15px; color: #b8a6c3; font-size: 9px; border-top: 1px solid #e9e2ef; margin-top: 32px; padding-top: 20px; }
+.page-footer a { display: inline-flex; align-items: center; gap: 7px; color: #ac93bb; }
+
+/* RESPONSIVIDADE: as regras a seguir sobrescrevem apenas o necessário em cada faixa.
+   Primeiro ajuste o desktop; depois reduza colunas, espaçamento e navegação. */
+@media (min-width: 1600px) {
+  .main-content { padding-top: 45px; }
+  .catalog-card { padding: 23px 23px 0; }
+  .catalog-card h4 { font-size: 16px; }
+  .card-description { font-size: 12px; }
+}
+@media (max-width: 1200px) {
+  .app-shell { grid-template-columns: 224px minmax(0,1fr); }
+  .sidebar { padding-left: 13px; padding-right: 13px; }
+  .main-content { padding-left: 28px; padding-right: 28px; }
+  .topbar { padding: 0 28px; }
+  .hero-code { display: none; }
+  .catalog-card { padding-left: 16px; padding-right: 16px; }
+  .learning-path { padding: 18px; }
+  .learning-path small { font-size: 9px; }
+  .learning-path > div { gap: 9px; }
+  .example-columns { grid-template-columns: minmax(0,1fr); }
+}
+@media (max-width: 1000px) {
+  .catalog-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .learning-path > svg { display: none; }
+  .step-number { padding: 8px 7px; font-size: 10px; }
+  .learning-path strong { font-size: 10px; }
+  .learning-path small { max-width: 110px; line-height: 1.6; }
+  .learning-path > div { align-items: flex-start; }
+  .filter-grid { grid-template-columns: 1fr 1fr; gap: 15px; }
+  .filter-grid > :first-child { grid-column: 1 / -1; }
+  .checkbox-group { gap: 12px; flex-wrap: wrap; }
+  .file-badge { font-size: 9px; }
+  .file-badge > span { display: none; }
+  .section-intro { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .section-intro > p { max-width: none; }
+  .guide-docs { flex-wrap: wrap; }
+}
+/* Menu lateral vira navegação horizontal em tablets e celulares. */
+@media (max-width: 780px) {
+  .app-shell { display: block; }
+  .sidebar { position: static; height: auto; padding: 19px 22px 0; border-right: 0; border-bottom: 1px solid var(--border); }
+  .brand { align-self: flex-start; }
+  .sidebar-section-label, .sidebar-note, .sidebar-bottom { display: none; }
+  .main-nav { flex-direction: row; overflow-x: auto; scrollbar-width: none; gap: 5px; padding: 16px 0 12px; }
+  .main-nav::-webkit-scrollbar { display: none; }
+  .nav-link { font-size: 10px; flex-shrink: 0; padding: 10px 11px; gap: 7px; }
+  .nav-link > svg { width: 15px; height: 15px; }
+  .nav-number { display: none; }
+  .nav-guide { border: 0; border-radius: 8px; margin-top: 0; }
+  .topbar { height: 49px; padding: 0 24px; }
+  .main-content { padding: 28px 24px 20px; }
+  .page-hero h1 { font-size: 36px; }
+  .learning-path { margin: 25px 0 28px; }
+  .catalog-intro h3 { font-size: 21px; }
+  .catalog-card { padding: 20px 20px 0; }
+  .card-description { font-size: 11px; }
+  .catalog-card h4 { font-size: 15px; }
+  .card-meta > strong { font-size: 15px; }
+  .card-category { font-size: 10px; }
+  .stock-label { font-size: 10px; }
+  .card-details { font-size: 11px; }
+  .view-switch button { padding: 7px 9px; }
+}
+/* Em celulares, cartões e formulários priorizam uma coluna e controles legíveis. */
+@media (max-width: 520px) {
+  .sidebar { padding-left: 18px; padding-right: 18px; }
+  .topbar { padding: 0 19px; }
+  .breadcrumb { font-size: 10px; gap: 9px; }
+  .reference-link { display: none; }
+  .main-content { padding: 26px 18px 20px; }
+  .page-hero h1 { font-size: 31px; letter-spacing: -1.1px; }
+  .page-hero p { font-size: 11px; max-width: 300px; }
+  .eyebrow { font-size: 8px; letter-spacing: 1.1px; }
+  .learning-path { gap: 12px; padding: 15px 11px; }
+  .learning-path > div { flex: 1; flex-direction: column; gap: 9px; }
+  .step-number { border: 0; padding: 0; background: none; font-size: 10px; }
+  .learning-path strong { font-size: 9px; }
+  .learning-path small { font-size: 8px; line-height: 1.7; margin-top: 5px; }
+  .example-section-header { flex-wrap: wrap; gap: 15px; margin-bottom: 22px; }
+  .view-switch { width: 100%; }
+  .view-switch button { flex: 1; font-size: 10px; padding: 8px; }
+  .example-title h2 { font-size: 14px; }
+  .catalog-intro { gap: 10px; }
+  .file-badge { font-size: 8px; padding: 6px; gap: 4px; }
+  .file-badge > svg { width: 12px; }
+  .catalog-intro h3 { font-size: 20px; }
+  .catalog-intro p { font-size: 10px; max-width: 205px; line-height: 1.8; }
+  .mini-label { font-size: 7px; }
+  .catalog-grid { grid-template-columns: minmax(0,1fr); gap: 15px; }
+  .catalog-card { padding: 22px 22px 0; }
+  .catalog-card h4 { font-size: 17px; }
+  .card-description { font-size: 12px; }
+  .card-category { font-size: 10px; }
+  .card-top { margin-bottom: 18px; }
+  .card-meta { margin-top: 3px; }
+  .card-details { padding: 16px 0; }
+  .filter-panel { padding: 18px 16px 0; }
+  .filter-grid { gap: 15px 12px; }
+  .field input, .field select { font-size: 12px; min-height: 41px; }
+  .filter-bottom { align-items: flex-end; }
+  .checkbox-group { flex-direction: column; align-items: flex-start; gap: 13px; }
+  .checkbox-group label { font-size: 11px; }
+  .results-toolbar p > span { font-size: 9px; }
+  .results-toolbar p { font-size: 10px; }
+  .pattern-strip { padding: 14px; gap: 13px; }
+  .pattern-strip code { font-size: 9px; }
+  .pagination { justify-content: space-between; gap: 6px; }
+  .pagination-summary { display: none; }
+  .panel { padding: 18px; }
+  .panel-heading { margin-bottom: 17px; }
+  .panel-heading h3 { font-size: 13px; }
+  .badge { font-size: 9px; }
+  .section-intro h2 { font-size: 22px; }
+  .callout { padding: 14px; font-size: 11px; gap: 9px; }
+  .guide-checklist ol { grid-template-columns: minmax(0,1fr); }
+  .guide-section-heading { align-items: flex-start; }
+  .recipe-details > summary { padding: 16px; font-size: 11px; gap: 10px; line-height: 1.8; }
+  .recipes-list summary strong { font-size: 11px; }
+  .recipe-index { display: none; }
+  .code-toolbar { padding: 10px 12px; flex-wrap: wrap; }
+  .code-content { padding: 18px 15px; font-size: 10px; max-height: 500px; }
+  .code-title { font-size: 9px; }
+  .source-view .code-content { max-height: 550px; }
+  .collection-card { padding: 16px; gap: 12px; }
+  .collection-card h3 { font-size: 13px; }
+  .collection-card > strong { font-size: 12px; }
+  .fetch-list li { grid-template-columns: auto 1fr; gap: 8px 14px; }
+  .fetch-list li > .muted { grid-column: 2; font-size: 11px; }
+  .page-footer { align-items: flex-start; flex-direction: column; line-height: 1.8; gap: 9px; font-size: 9px; }
+  .modal-header { padding: 17px 18px; }
+  .modal-header h2 { font-size: 18px; }
+  .modal-body { padding: 18px; }
+  .detail-grid { grid-template-columns: 1fr 1fr; }
+}
+/* Respeita quem configurou o sistema para reduzir movimentos e animações. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}

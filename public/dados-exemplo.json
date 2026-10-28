@@ -1,0 +1,6 @@
+[
+  { "id": 1, "nome": "React", "categoria": "Interface" },
+  { "id": 2, "nome": "Vite", "categoria": "Ambiente de desenvolvimento" },
+  { "id": 3, "nome": "JavaScript", "categoria": "Linguagem" },
+  { "id": 4, "nome": "CSS", "categoria": "Estilos" }
+]

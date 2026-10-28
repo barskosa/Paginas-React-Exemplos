@@ -1,0 +1,139 @@
+{
+  "categorias": [
+    { "id": "frontend", "nome": "Front-end" },
+    { "id": "javascript", "nome": "JavaScript" },
+    { "id": "design", "nome": "Design" },
+    { "id": "ferramentas", "nome": "Ferramentas" },
+    { "id": "dados", "nome": "Dados" }
+  ],
+  "itens": [
+    {
+      "id": 1,
+      "nome": "React na prática",
+      "categoriaId": "frontend",
+      "preco": 89.9,
+      "estoque": 12,
+      "descricao": "Um guia de componentes, props e estado para construir interfaces com React.",
+      "tags": ["React", "Componentes"]
+    },
+    {
+      "id": 2,
+      "nome": "JavaScript essencial",
+      "categoriaId": "javascript",
+      "preco": 69.9,
+      "estoque": 8,
+      "descricao": "Variáveis, funções, objetos e arrays em exemplos para o dia a dia.",
+      "tags": ["JavaScript", "Fundamentos"]
+    },
+    {
+      "id": 3,
+      "nome": "Interfaces com CSS",
+      "categoriaId": "design",
+      "preco": 59.9,
+      "estoque": 5,
+      "descricao": "Layouts responsivos com Flexbox, Grid e boas práticas de acessibilidade.",
+      "tags": ["CSS", "Responsividade"]
+    },
+    {
+      "id": 4,
+      "nome": "Vite sem mistério",
+      "categoriaId": "ferramentas",
+      "preco": 39.9,
+      "estoque": 15,
+      "descricao": "Criação de projetos, importação de arquivos e geração da versão de produção.",
+      "tags": ["Vite", "Build"]
+    },
+    {
+      "id": 5,
+      "nome": "Arrays e objetos",
+      "categoriaId": "javascript",
+      "preco": 49.9,
+      "estoque": 0,
+      "descricao": "Transforme dados com map, filter, find, some, every e reduce.",
+      "tags": ["Arrays", "JSON"]
+    },
+    {
+      "id": 6,
+      "nome": "Design de componentes",
+      "categoriaId": "design",
+      "preco": 79.9,
+      "estoque": 4,
+      "descricao": "Organize uma interface com hierarquia visual e componentes reutilizáveis.",
+      "tags": ["Interface", "Design"]
+    },
+    {
+      "id": 7,
+      "nome": "Formulários em React",
+      "categoriaId": "frontend",
+      "preco": 64.9,
+      "estoque": 6,
+      "descricao": "Inputs controlados, validação e operações de cadastro, edição e remoção.",
+      "tags": ["React", "Formulários"]
+    },
+    {
+      "id": 8,
+      "nome": "Git para projetos",
+      "categoriaId": "ferramentas",
+      "preco": 44.9,
+      "estoque": 10,
+      "descricao": "Versionamento básico para acompanhar alterações e organizar entregas.",
+      "tags": ["Git", "Terminal"]
+    },
+    {
+      "id": 9,
+      "nome": "JavaScript assíncrono",
+      "categoriaId": "javascript",
+      "preco": 74.9,
+      "estoque": 3,
+      "descricao": "Promises, async/await, fetch e tratamento de falhas no carregamento.",
+      "tags": ["JavaScript", "Fetch"]
+    },
+    {
+      "id": 10,
+      "nome": "Acessibilidade na web",
+      "categoriaId": "design",
+      "preco": 54.9,
+      "estoque": 0,
+      "descricao": "Semântica, navegação por teclado, rótulos e estados claros para todos.",
+      "tags": ["HTML", "Acessibilidade"]
+    },
+    {
+      "id": 11,
+      "nome": "Hooks e efeitos",
+      "categoriaId": "frontend",
+      "preco": 84.9,
+      "estoque": 7,
+      "descricao": "Aprenda quando usar useState e useEffect com exemplos pequenos.",
+      "tags": ["React", "Hooks"]
+    },
+    {
+      "id": 12,
+      "nome": "Caderno de exercícios",
+      "categoriaId": "ferramentas",
+      "preco": 0,
+      "estoque": 20,
+      "descricao": "Exercícios de revisão para praticar leitura e apresentação de dados locais.",
+      "tags": []
+    }
+  ],
+  "colecoes": [
+    {
+      "id": "primeiros-passos",
+      "nome": "Primeiros passos",
+      "descricao": "Uma seleção para começar com JavaScript, React e Vite.",
+      "itemIds": [2, 1, 4]
+    },
+    {
+      "id": "interfaces",
+      "nome": "Construindo interfaces",
+      "descricao": "Inclui uma referência ao ID 999, ausente do catálogo, para praticar relações incompletas.",
+      "itemIds": [3, 6, 7, 999]
+    },
+    {
+      "id": "minha-selecao",
+      "nome": "Próxima leitura",
+      "descricao": "Uma coleção vazia para exercitar a exibição de um estado sem itens.",
+      "itemIds": []
+    }
+  ]
+}
